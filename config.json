@@ -1,0 +1,15 @@
+{
+  "sites": [
+	{
+	  "name": "CyberPuerta",
+	  "url": "https://www.cyberpuerta.mx/",
+	  "next_button_selector": "a.next",
+	  "product_list_selector": "productList",
+	  "product_name_selector": "a.emproduct_right_title",
+	  "product_price_selector": "div.emproduct_right_price_left > label.price",
+	  "product_availability_selector": "div.emstock > span",
+      "categoria_promociones_selector": "a[href='/Promociones/']",
+      "file_name": "cyberpuerta.xlsx"
+	}
+  ]
+}
