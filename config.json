@@ -3,13 +3,49 @@
 		{
 			"name": "CyberPuerta",
 			"url": "https://www.cyberpuerta.mx/",
-			"next_page_selector": "a.next",
-			"product_list_selector": "productList",
-			"product_item_selector": "li.cell.productData",
-			"product_name_selector": "a.emproduct_right_title",
-			"product_price_selector": "div.emproduct_right_price_left > label.price",
-			"product_availability_selector": "div.emstock > span",
-			"categoria_promociones_selector": "a[href='/Promociones/']",
+			"selectors": {
+				"button": {
+					"next_page": "a.next"
+				},
+				"link": {
+					"categoria_promociones": "a[href='/Promociones/']"
+				},
+				"list": {
+					"product_list": "productList"
+				},
+				"item": {
+					"product_item": "li.cell.productData"
+				},
+				"text": {
+					"product_name": "a.emproduct_right_title",
+					"product_price": "div.emproduct_right_price_left > label.price",
+					"product_availability": "div.emstock > span"
+				}
+			},
+			"file_name": "cyberpuerta.xlsx"
+		},
+		{
+			"name": "CyberPuerta",
+			"url": "https://www.cyberpuerta.mx/",
+			"selectors": {
+				"button": {
+					"next_page": "a.next"
+				},
+				"link": {
+					"categoria_promociones": "a[href='/Promociones/']"
+				},
+				"list": {
+					"product_list": "productList"
+				},
+				"item": {
+					"product_item": "li.cell.productData"
+				},
+				"text": {
+					"product_name": "a.emproduct_right_title",
+					"product_price": "div.emproduct_right_price_left > label.price",
+					"product_availability": "div.emstock > span"
+				}
+			},
 			"file_name": "cyberpuerta.xlsx"
 		}
 	]

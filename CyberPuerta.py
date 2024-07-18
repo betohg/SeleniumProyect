@@ -16,7 +16,7 @@ class CyberpuertaScraper(ScraperBaseClass):
 		try:
 			categoria_promociones = WebDriverWait(self.driver, 10).until(
 				EC.presence_of_element_located(
-					(By.CSS_SELECTOR, self.config['categoria_promociones_selector']))
+					(By.CSS_SELECTOR, self.config['selectors']['link']['categoria_promociones']))
 			)
 			print("Categoría de promociones encontrada.")
 			categoria_promociones.click()
@@ -25,11 +25,11 @@ class CyberpuertaScraper(ScraperBaseClass):
 			while i < 2:
 				product_list = WebDriverWait(self.driver, 20).until(
 					EC.presence_of_element_located(
-						(By.ID, self.config['product_list_selector']))
+						(By.ID, self.config['selectors']['list']['product_list']))
 				)
 				print("Lista de productos encontrada.")
 				product_items = product_list.find_elements(
-					By.CSS_SELECTOR, self.config['product_item_selector'])
+					By.CSS_SELECTOR, self.config['selectors']['item']['product_item'])
 
 				if not product_items:
 					print("No se encontraron productos.")
@@ -37,11 +37,11 @@ class CyberpuertaScraper(ScraperBaseClass):
 
 				for item in product_items:
 					product_name = item.find_element(
-						By.CSS_SELECTOR, self.config['product_name_selector']).text
+						By.CSS_SELECTOR, self.config['selectors']['text']['product_name']).text
 					product_price = item.find_element(
-						By.CSS_SELECTOR, self.config['product_price_selector']).text
+						By.CSS_SELECTOR, self.config['selectors']['text']['product_price']).text
 					product_availability = item.find_element(
-						By.CSS_SELECTOR, self.config['product_availability_selector']).text
+						By.CSS_SELECTOR, self.config['selectors']['text']['product_availability']).text
 
 					self.product_names.append(product_name)
 					self.product_prices.append(product_price)
@@ -51,7 +51,7 @@ class CyberpuertaScraper(ScraperBaseClass):
 
 				next_page_button = WebDriverWait(self.driver, 10).until(
 					EC.element_to_be_clickable(
-						(By.CSS_SELECTOR, self.config['next_page_selector']))
+						(By.CSS_SELECTOR, self.config['selectors']['button']['next_page']))
 				)
 				next_page_button.click()
 
