@@ -1,60 +1,107 @@
 {
-	"sites": [
-		{
-			"name": "CyberPuerta",
-			"url": "https://www.cyberpuerta.mx/",
-			"selectors": {
-				"button": {
-					"next_page": "a.next"
-				},
-				"link": {
-					"categoria_promociones": "a[href='/Promociones/']"
-				},
-				"list": {
-					"product_list": "productList"
-				},
-				"item": {
-					"product_item": "li.cell.productData"
-				},
-				"text": {
-					"product_name": "a.emproduct_right_title",
-					"product_price": "div.emproduct_right_price_left > label.price",
-					"product_availability": "div.emstock > span"
-				}
-			},
-			"file_name": "cyberpuerta.xlsx"
-		},
-		{
-			"name": "LNBP",
-			"url": "https://www.lnbp.mx/",
-			"selectors": {
-				"button": {
-					"next_page": "a.next"
-				},
-				"link": {
-					"categoria_promociones": "a[href='/Promociones/']"
-				},
-				"list": {
-					"product_list": "productList"
-				},
-				"item": {
-					"product_item": "li.cell.productData"
-				},
-				"table": {
-					"team_stats": "table.OjZ8MP9bw8TpwMdcvzLq"
-				},
-				"row": {
-					"team_row": "tr.F_boufR07ADzJQLWptjQ"
-				},
-				"text": {
-					"team_name": "td:nth-of-type(2)",
-					"games_played": "td:nth-of-type(3)",
-					"games_won": "td:nth-of-type(4)",
-					"games_lost": "td:nth-of-type(5)",
-					"points": "td:nth-of-type(6)"
-				}
-			},
-			"file_name": "LNBP.xlsx"
-		}
-	]
+  "sites": [
+    {
+      "name": "CyberPuerta",
+      "url": "https://www.cyberpuerta.mx/",
+      "actions": [
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "a[href='/Promociones/']",
+          "action": "click",
+          "description": "categoria_promociones"
+        },
+        {
+          "selector": "ID",
+          "selector_name": "productList",
+          "action": "find",
+          "description": "product_list"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "li.cell.productData",
+          "action": "find_multiple",
+          "description": "product_item"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "a.emproduct_right_title",
+          "action": "get_text",
+          "description": "product_name"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "div.emproduct_right_price_left > label.price",
+          "action": "get_text",
+          "description": "product_price"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "div.emstock > span",
+          "action": "get_text",
+          "description": "product_availability"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "a.next",
+          "action": "click",
+          "description": "next_page"
+        }
+      ],
+      "file_name": "cyberpuerta.xlsx"
+    },
+    {
+      "name": "LNBP",
+      "url": "https://www.lnbp.mx/",
+      "selectors": {
+        "button": {
+          "next_page": "a.next"
+        },
+        "link": {
+          "categoria_promociones": "a[href='/Promociones/']"
+        },
+        "list": {
+          "product_list": "productList"
+        },
+        "item": {
+          "product_item": "li.cell.productData"
+        },
+        "table": {
+          "team_stats": "table.OjZ8MP9bw8TpwMdcvzLq"
+        },
+        "row": {
+          "team_row": "tr.F_boufR07ADzJQLWptjQ"
+        },
+        "text": {
+          "team_name": "td:nth-of-type(2)",
+          "games_played": "td:nth-of-type(3)",
+          "games_won": "td:nth-of-type(4)",
+          "games_lost": "td:nth-of-type(5)",
+          "points": "td:nth-of-type(6)"
+        }
+      },
+      "file_name": "LNBP.xlsx"
+    },
+    {
+      "name": "TIOBE",
+      "url": "https://www.tiobe.com/tiobe-index/",
+      "selectors": {
+        "table": {
+          "top20_table": "table.table-top20"
+        },
+        "row": {
+          "top20_row": "table.table-top20 > tbody > tr"
+        },
+        "text": {
+          "rank_current": "td:nth-of-type(1)",
+          "rank_previous": "td:nth-of-type(2)",
+          "change": "td:nth-of-type(3) img",
+          "language_icon": "td:nth-of-type(4) img",
+          "language_name": "td:nth-of-type(5)",
+          "rating": "td:nth-of-type(6)",
+          "change_percentage": "td:nth-of-type(7)"
+        }
+      },
+      "file_name": "TIOBE.xlsx"
+    }
+  ]
 }

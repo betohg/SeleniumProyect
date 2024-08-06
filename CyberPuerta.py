@@ -1,8 +1,8 @@
-from ScraperBase import ScraperBaseClass
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
+from ScraperBase import ScraperBaseClass
 
 class CyberpuertaScraper(ScraperBaseClass):
 	def __init__(self, config):
@@ -14,48 +14,37 @@ class CyberpuertaScraper(ScraperBaseClass):
 
 	def extract_product_data(self):
 		try:
-			categoria_promociones = WebDriverWait(self.driver, 10).until(
-				EC.presence_of_element_located(
-					(By.CSS_SELECTOR, self.config['selectors']['link']['categoria_promociones']))
-			)
-			print("Categoría de promociones encontrada.")
-			categoria_promociones.click()
+			for action in self.config['actions']:
+				if action['action'] == 'click':
+					element = WebDriverWait(self.driver, 10).until(
+						EC.element_to_be_clickable(
+							(getattr(By, action['selector']), action['selector_name'])
+						)
+					)
+					element.click()
+				elif action['action'] == 'find':
+					element = WebDriverWait(self.driver, 20).until(
+						EC.presence_of_element_located(
+							(getattr(By, action['selector']), action['selector_name'])
+						)
+					)
+				elif action['action'] == 'find_multiple':
+					elements = element.find_elements(
+						getattr(By, action['selector']), action['selector_name']
+					)
+					for item in elements:
+						product_name = item.find_element(
+							By.CSS_SELECTOR, self.config['actions'][3]['selector_name']).text
+						product_price = item.find_element(
+							By.CSS_SELECTOR, self.config['actions'][4]['selector_name']).text
+						product_availability = item.find_element(
+							By.CSS_SELECTOR, self.config['actions'][5]['selector_name']).text
 
-			i = 0
-			while i < 2:
-				product_list = WebDriverWait(self.driver, 20).until(
-					EC.presence_of_element_located(
-						(By.ID, self.config['selectors']['list']['product_list']))
-				)
-				print("Lista de productos encontrada.")
-				product_items = product_list.find_elements(
-					By.CSS_SELECTOR, self.config['selectors']['item']['product_item'])
+						self.product_names.append(product_name)
+						self.product_prices.append(product_price)
+						self.product_availabilities.append(product_availability)
 
-				if not product_items:
-					print("No se encontraron productos.")
-					break
-
-				for item in product_items:
-					product_name = item.find_element(
-						By.CSS_SELECTOR, self.config['selectors']['text']['product_name']).text
-					product_price = item.find_element(
-						By.CSS_SELECTOR, self.config['selectors']['text']['product_price']).text
-					product_availability = item.find_element(
-						By.CSS_SELECTOR, self.config['selectors']['text']['product_availability']).text
-
-					self.product_names.append(product_name)
-					self.product_prices.append(product_price)
-					self.product_availabilities.append(product_availability)
-
-				print(f"Productos extraídos: {len(self.product_names)}")
-
-				next_page_button = WebDriverWait(self.driver, 10).until(
-					EC.element_to_be_clickable(
-						(By.CSS_SELECTOR, self.config['selectors']['button']['next_page']))
-				)
-				next_page_button.click()
-
-				i += 1
+			print(f"Productos extraídos: {len(self.product_names)}")
 
 		except Exception as e:
 			print(f"Error durante la extracción de datos: {e}")

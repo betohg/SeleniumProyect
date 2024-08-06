@@ -1,6 +1,7 @@
 import json
 from CyberPuerta import CyberpuertaScraper
 from LnbpScraper import LNBPScraperClass
+from TiobeScraper import ProgrammingLanguagesScraper
 
 def load_config():
 	with open('config.json', 'r') as file:
@@ -11,8 +12,8 @@ def get_scraper(site_config):
         return CyberpuertaScraper(site_config)
     elif site_config['name'] == 'LNBP':
         return LNBPScraperClass(site_config)
-    # elif site_config['type'] == 'amazon':
-    #     return AmazonScraper(site_config)
+    elif site_config['name'] == 'TIOBE':
+        return ProgrammingLanguagesScraper(site_config)
     else:
         raise ValueError("Tipo de scraper no soportado")
 
