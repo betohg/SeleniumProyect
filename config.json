@@ -52,55 +52,113 @@
     {
       "name": "LNBP",
       "url": "https://www.lnbp.mx/",
-      "selectors": {
-        "button": {
-          "next_page": "a.next"
+      "actions": [
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "table.OjZ8MP9bw8TpwMdcvzLq",
+          "action": "find",
+          "description": "team_stats"
         },
-        "link": {
-          "categoria_promociones": "a[href='/Promociones/']"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "tr.F_boufR07ADzJQLWptjQ",
+          "action": "find_multiple",
+          "description": "team_row"
         },
-        "list": {
-          "product_list": "productList"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(2)",
+          "action": "get_text",
+          "description": "team_name"
         },
-        "item": {
-          "product_item": "li.cell.productData"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(3)",
+          "action": "get_text",
+          "description": "games_played"
         },
-        "table": {
-          "team_stats": "table.OjZ8MP9bw8TpwMdcvzLq"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(4)",
+          "action": "get_text",
+          "description": "games_won"
         },
-        "row": {
-          "team_row": "tr.F_boufR07ADzJQLWptjQ"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(5)",
+          "action": "get_text",
+          "description": "games_lost"
         },
-        "text": {
-          "team_name": "td:nth-of-type(2)",
-          "games_played": "td:nth-of-type(3)",
-          "games_won": "td:nth-of-type(4)",
-          "games_lost": "td:nth-of-type(5)",
-          "points": "td:nth-of-type(6)"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(6)",
+          "action": "get_text",
+          "description": "points"
         }
-      },
+      ],
       "file_name": "LNBP.xlsx"
     },
     {
       "name": "TIOBE",
       "url": "https://www.tiobe.com/tiobe-index/",
-      "selectors": {
-        "table": {
-          "top20_table": "table.table-top20"
+      "actions": [
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "table.table-top20",
+          "action": "find",
+          "description": "top20_table"
         },
-        "row": {
-          "top20_row": "table.table-top20 > tbody > tr"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "table.table-top20 > tbody > tr",
+          "action": "find_multiple",
+          "description": "top20_row"
         },
-        "text": {
-          "rank_current": "td:nth-of-type(1)",
-          "rank_previous": "td:nth-of-type(2)",
-          "change": "td:nth-of-type(3) img",
-          "language_icon": "td:nth-of-type(4) img",
-          "language_name": "td:nth-of-type(5)",
-          "rating": "td:nth-of-type(6)",
-          "change_percentage": "td:nth-of-type(7)"
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(1)",
+          "action": "get_text",
+          "description": "rank_current"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(2)",
+          "action": "get_text",
+          "description": "rank_previous"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(3) img",
+          "action": "get_attribute",
+          "attribute": "src",
+          "description": "change"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(4) img",
+          "action": "get_attribute",
+          "attribute": "src",
+          "description": "language_icon"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(5)",
+          "action": "get_text",
+          "description": "language_name"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(6)",
+          "action": "get_text",
+          "description": "rating"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "td:nth-of-type(7)",
+          "action": "get_text",
+          "description": "change_percentage"
         }
-      },
+      ],
       "file_name": "TIOBE.xlsx"
     }
   ]

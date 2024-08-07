@@ -18,30 +18,34 @@ class ProgrammingLanguagesScraper(ScraperBaseClass):
 
     def extract_product_data(self):
         try:
+            self.driver.get(self.config['url'])
             table = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, self.config['selectors']['table']['top20_table']))
+                    (By.CSS_SELECTOR, self.config['actions'][0]['selector_name']))
             )
             rows = table.find_elements(
-                By.CSS_SELECTOR, self.config['selectors']['row']['top20_row'])
+                By.CSS_SELECTOR, self.config['actions'][1]['selector_name'])
 
             for row in rows:
                 self.rank_2024.append(row.find_element(
-                    By.CSS_SELECTOR, self.config['selectors']['text']['rank_current']).text)
+                    By.CSS_SELECTOR, self.config['actions'][2]['selector_name']).text)
                 self.rank_2023.append(row.find_element(
-                    By.CSS_SELECTOR, self.config['selectors']['text']['rank_previous']).text)
+                    By.CSS_SELECTOR, self.config['actions'][3]['selector_name']).text)
 
-                # change_element = row.find_element(
-                #     By.CSS_SELECTOR, self.config['selectors']['text']['change'])
-                # self.change.append(change_element.get_attribute(
-                #     'alt') if change_element.tag_name == 'img' else change_element.text)
+                try:
+                    change_element = row.find_element(
+                        By.CSS_SELECTOR, self.config['actions'][4]['selector_name'])
+                    self.change.append(change_element.get_attribute(
+                        'src') if change_element.tag_name == 'img' else change_element.text)
+                except:
+                    self.change.append('N/A')
 
                 self.language_names.append(row.find_element(
-                    By.CSS_SELECTOR, self.config['selectors']['text']['language_name']).text)
+                    By.CSS_SELECTOR, self.config['actions'][5]['selector_name']).text)
                 self.ratings.append(row.find_element(
-                    By.CSS_SELECTOR, self.config['selectors']['text']['rating']).text)
+                    By.CSS_SELECTOR, self.config['actions'][6]['selector_name']).text)
                 self.change_in_ratings.append(row.find_element(
-                    By.CSS_SELECTOR, self.config['selectors']['text']['change_percentage']).text)
+                    By.CSS_SELECTOR, self.config['actions'][7]['selector_name']).text)
 
             print(
                 f"Datos de lenguajes de programación extraídos: {len(self.language_names)}")
@@ -51,13 +55,14 @@ class ProgrammingLanguagesScraper(ScraperBaseClass):
 
     def save_to_excel(self, filename):
         try:
+            min_length = min(len(self.rank_2024), len(self.rank_2023), len(self.change), len(self.language_names), len(self.ratings), len(self.change_in_ratings))
             df = pd.DataFrame({
-                'Rank 2024': self.rank_2024,
-                'Rank 2023': self.rank_2023,
-                # 'Change': self.change,
-                'Programming Language': self.language_names,
-                'Ratings': self.ratings,
-                'Change in Ratings': self.change_in_ratings
+                'Rank 2024': self.rank_2024[:min_length],
+                'Rank 2023': self.rank_2023[:min_length],
+                'Change': self.change[:min_length],
+                'Programming Language': self.language_names[:min_length],
+                'Ratings': self.ratings[:min_length],
+                'Change in Ratings': self.change_in_ratings[:min_length]
             })
             df.to_excel(filename, index=False)
             print(f"Datos guardados exitosamente en {filename}")
