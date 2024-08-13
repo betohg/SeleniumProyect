@@ -33,6 +33,12 @@
           "selector_name": "div.section table",
           "action": "find",
           "description": "prize_table"
+        },
+        {
+          "selector": "XPATH",
+          "selector_name": "//span[@itemprop='name' and text()='Numbers']",
+          "action": "click",
+          "description": "back_to_numbers_button"
         }
       ],
       "file_name": "",

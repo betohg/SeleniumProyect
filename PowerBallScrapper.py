@@ -37,25 +37,46 @@ class PowerBallScraperClass(ScraperBaseClass):
 
             print(f"Fechas de PowerBall extraídas: {self.dates}")
 
-            # Hacer clic en el botón "Prize Breakdown" del primer resultado
-            first_prize_breakdown_button = result_containers[0].find_element(By.CSS_SELECTOR, self.config['actions'][3]['selector_name'])
-            first_prize_breakdown_button.click()
+            for index, result_container in enumerate(result_containers[:len(self.dates)]):
+                try:
+                    # Obtener el href del botón "Prize Breakdown"
+                    prize_breakdown_href = result_container.find_element(By.CSS_SELECTOR, self.config['actions'][3]['selector_name']).get_attribute("href")
 
-            # Esperar a que la tabla de premios esté presente
-            prize_table = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, self.config['actions'][4]['selector_name']))
-            )
+                    # Si el href no es una URL completa, prepender el dominio principal
+                    if not prize_breakdown_href.startswith("http"):
+                        prize_breakdown_href = self.config['url'].split('/numbers')[0] + prize_breakdown_href
 
-            # Extraer datos de la tabla
-            rows = prize_table.find_elements(By.TAG_NAME, 'tr')
-            table_data = []
-            for row in rows:
-                cols = row.find_elements(By.TAG_NAME, 'td')
-                cols = [col.text for col in cols]
-                table_data.append(cols)
+                    # Navegar a la página del "Prize Breakdown"
+                    self.driver.get(prize_breakdown_href)
 
-            # Guardar datos en el primer archivo Excel
-            self.save_to_excel(self.dates[0], table_data)
+                    # Esperar a que la tabla de premios esté presente
+                    prize_table = WebDriverWait(self.driver, 10).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, self.config['actions'][4]['selector_name']))
+                    )
+
+                    # Extraer datos de la tabla
+                    rows = prize_table.find_elements(By.TAG_NAME, 'tr')
+                    table_data = []
+                    for row in rows:
+                        cols = row.find_elements(By.TAG_NAME, 'td')
+                        cols = [col.text for col in cols]
+                        table_data.append(cols)
+
+                    # Guardar datos en un archivo Excel para cada fecha
+                    self.save_to_excel(self.dates[index], table_data)
+
+                    # Regresar a la página principal de fechas
+                    self.driver.back()
+
+                    # Esperar a que la página vuelva a cargar los resultados
+                    WebDriverWait(self.driver, 10).until(
+                        EC.presence_of_element_located(
+                            (By.CSS_SELECTOR, self.config['actions'][0]['selector_name']))
+                    )
+
+                except Exception as e:
+                    print(f"Error durante la extracción de datos en la iteración {index + 1}: {e}")
+                    continue  # Intentar con la siguiente fecha
 
         except IndexError as e:
             print(f"Error durante la extracción de datos: {e}")
