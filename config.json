@@ -1,165 +1,43 @@
 {
   "sites": [
     {
-      "name": "CyberPuerta",
-      "url": "https://www.cyberpuerta.mx/",
+      "name": "PowerBall",
+      "url": "https://www.lotto.net/powerball/numbers/2024",
       "actions": [
         {
           "selector": "CSS_SELECTOR",
-          "selector_name": "a[href='/Promociones/']",
+          "selector_name": "div.archive-container",
+          "action": "find",
+          "description": "archive_container"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "div.results-vsmall.archive-list",
+          "action": "find",
+          "description": "result_containers"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "div.date",
+          "action": "get_text",
+          "description": "date"
+        },
+        {
+          "selector": "CSS_SELECTOR",
+          "selector_name": "a.btn",
           "action": "click",
-          "description": "categoria_promociones"
+          "description": "prize_breakdown_button"
         },
         {
-          "selector": "ID",
-          "selector_name": "productList",
+          "selector": "CSS_SELECTOR",
+          "selector_name": "div.section table",
           "action": "find",
-          "description": "product_list"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "li.cell.productData",
-          "action": "find_multiple",
-          "description": "product_item"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "a.emproduct_right_title",
-          "action": "get_text",
-          "description": "product_name"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "div.emproduct_right_price_left > label.price",
-          "action": "get_text",
-          "description": "product_price"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "div.emstock > span",
-          "action": "get_text",
-          "description": "product_availability"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "a.next",
-          "action": "click",
-          "description": "next_page"
+          "description": "prize_table"
         }
       ],
-      "file_name": "cyberpuerta.xlsx"
-    },
-    {
-      "name": "LNBP",
-      "url": "https://www.lnbp.mx/",
-      "actions": [
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "table.OjZ8MP9bw8TpwMdcvzLq",
-          "action": "find",
-          "description": "team_stats"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "tr.F_boufR07ADzJQLWptjQ",
-          "action": "find_multiple",
-          "description": "team_row"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(2)",
-          "action": "get_text",
-          "description": "team_name"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(3)",
-          "action": "get_text",
-          "description": "games_played"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(4)",
-          "action": "get_text",
-          "description": "games_won"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(5)",
-          "action": "get_text",
-          "description": "games_lost"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(6)",
-          "action": "get_text",
-          "description": "points"
-        }
-      ],
-      "file_name": "LNBP.xlsx"
-    },
-    {
-      "name": "TIOBE",
-      "url": "https://www.tiobe.com/tiobe-index/",
-      "actions": [
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "table.table-top20",
-          "action": "find",
-          "description": "top20_table"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "table.table-top20 > tbody > tr",
-          "action": "find_multiple",
-          "description": "top20_row"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(1)",
-          "action": "get_text",
-          "description": "rank_current"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(2)",
-          "action": "get_text",
-          "description": "rank_previous"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(3) img",
-          "action": "get_attribute",
-          "attribute": "src",
-          "description": "change"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(4) img",
-          "action": "get_attribute",
-          "attribute": "src",
-          "description": "language_icon"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(5)",
-          "action": "get_text",
-          "description": "language_name"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(6)",
-          "action": "get_text",
-          "description": "rating"
-        },
-        {
-          "selector": "CSS_SELECTOR",
-          "selector_name": "td:nth-of-type(7)",
-          "action": "get_text",
-          "description": "change_percentage"
-        }
-      ],
-      "file_name": "TIOBE.xlsx"
+      "file_name": "",
+      "file_name2": "",
+      "file_name3": ""
     }
   ]
 }
